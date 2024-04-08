@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'happy'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'//스웨그 2줄쓰는거 나는 안돼서 이걸로 대체함.https://happyhappy3.tistory.com/32 참고하기.
+	runtimeOnly 'com.mysql:mysql-connector-j'//https://happyhappy3.tistory.com/26버전 변경으로 인해, 강의와 내용이 다름.
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//회원가입 부분을 만들기 위해 주석처리한 것을 해제해준다
+	//실전배당금 프로젝트 회원가입 강의 부분 참조(chapter5 회원관리 01회원가입)jwt토큰을 활용한데
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	//밑에 2개는 블로그 참고함.
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+	//실전배당금 chapter4-09참고하기
+	implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
+
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	//바로 위에 3개는 아직 알아봐야 한다.. stock에 security있고, Account에 validation 있다.
+
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
